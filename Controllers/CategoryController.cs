@@ -1,7 +1,7 @@
 ﻿using BulkyWeb.data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using BulkyWeb.Models;
 namespace BulkyWeb.Controllers
 {
     public class CategoryController : Controller
@@ -26,20 +26,24 @@ namespace BulkyWeb.Controllers
         //    return View();
         //}
 
-        //// GET: CatrgoryController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+         //GET: CatrgoryController/Create
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         // POST: CatrgoryController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+     
+        public ActionResult Create(Category category)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _db.Categories.Add(category);
+                _db.SaveChanges();
+              
+                return RedirectToAction("Index","Category");
             }
             catch
             {
