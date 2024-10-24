@@ -54,17 +54,34 @@ namespace BulkyWeb.Controllers
         // GET: CatrgoryController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            try
+            {
+                var category = _db.Categories.SingleOrDefault(c => c.Id == id);
+                if (category != null)
+                {
+                    return View(category);
+                }
+                return RedirectToAction("Index", "Category");
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("Index", "Category");
+            }
+           
         }
 
         // POST: CatrgoryController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, Category category)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _db.Categories.Update(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index","Category");
             }
             catch
             {
@@ -75,7 +92,13 @@ namespace BulkyWeb.Controllers
         // GET: CatrgoryController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var ItemToBeRemoved=_db.Categories.FirstOrDefault(x => x.Id == id);
+            if (ItemToBeRemoved != null)
+            {
+                _db.Categories.Remove(ItemToBeRemoved);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Category");
         }
 
         // POST: CatrgoryController/Delete/5

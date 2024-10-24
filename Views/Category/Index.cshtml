@@ -11,7 +11,8 @@
     <thead>
     <tr>
         <th>Category Name</th>
-         <th>Display order</th>
+        <th>Display order</th>
+        <th colspan="2">Actions</th>
          
     </tr>
     </thead>
@@ -25,6 +26,8 @@
                 <td>
                     @obj.DisplayOrder
                 </td>
+                <td><a asp-route-id="@obj.Id" asp-action="Edit" asp-controller="Category">Edit</a> </td>
+                <td><a asp-route-id="@obj.Id" asp-action="Delete" asp-controller="Category" >Delete</a></td>
             </tr>
         }
     </tbody>
