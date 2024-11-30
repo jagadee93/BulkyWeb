@@ -5,10 +5,17 @@
 }
 @if (TempData["success"] != null)
 {
-    <p>@TempData["success"]</p>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">toastr.success("@TempData["success"]");</script>
+   
 }  
 
 @if (TempData["error"] != null)
 {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <p>@TempData["error"]</p>
+    <script type="text/javascript">toastr.success("@TempData["error"]");</script>
 }  
+
