@@ -9,25 +9,24 @@ namespace BulkyBookWeb.Controllers
     {
         /*public readonly ApplicationDbContext _db;*/
        /* private readonly ICategoryRepository _categoryRepo;*/
-
+        
         private readonly IUnitOfWork _unitOfWork;
-
         /*public CategoryController(ApplicationDbContext db)
         {
            this._db  = db;
         }*/
 
+        //Now we are  creating object for CategoryRepository in UnitOfWorl
         public CategoryController(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
-
         }
 
         // GET: CatrgoryController
         public ActionResult Index()
         {
             Console.WriteLine("Hello");
-            var objCategoryList=_categoryRepo.GetAll().ToList();
+            var objCategoryList=_unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -51,8 +50,8 @@ namespace BulkyBookWeb.Controllers
         {
             try
             {
-                _categoryRepo.Add(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork.Save();
                 TempData["success"] = "New Category Has been created";
                 return RedirectToAction("Index","Category");
             }
@@ -69,7 +68,7 @@ namespace BulkyBookWeb.Controllers
             try
             {
                 /*var category = _db.Categories.SingleOrDefault(c => c.Id == id);*/
-                var category=_categoryRepo.Get(u=>u.Id == id);
+                var category=_unitOfWork.Category.Get(u=>u.Id == id);
 
                 if (category != null)
                 {
@@ -95,8 +94,8 @@ namespace BulkyBookWeb.Controllers
                /* _db.Categories.Update(category);
                 _db.SaveChanges();*/
 
-                _categoryRepo.Update(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Save();
 
 
                 TempData["success"] = "Category has been edited....";
@@ -112,14 +111,14 @@ namespace BulkyBookWeb.Controllers
         public ActionResult Delete(int id)
         {
             /* var ItemToBeRemoved=_db.Categories.FirstOrDefault(x => x.Id == id);*/
-            var ItemToBeRemoved = _categoryRepo.Get(u => u.Id == id);
+            var ItemToBeRemoved = _unitOfWork.Category.Get(u => u.Id == id);
             if (ItemToBeRemoved != null)
             {
               /*  _db.Categories.Remove(ItemToBeRemoved);
                 _db.SaveChanges();*/
 
-                _categoryRepo.Remove(ItemToBeRemoved);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Remove(ItemToBeRemoved);
+                _unitOfWork.Save();
 
 
             }
