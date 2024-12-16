@@ -1,0 +1,84 @@
+﻿@model Product
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-white">
+            <h3 class="card-title text-center">Edit Book Details</h3>
+        </div>
+        <div class="card-body">
+            <form class="needs-validation" method="post" asp-action="Edit" novalidate>
+                <div class="row">
+                    <!-- Title -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Title" class="form-label font-weight-bold">Title</label>
+                        <input asp-for="Title" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Title"></span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Description" class="form-label font-weight-bold">Description</label>
+                        <input asp-for="Description" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Description"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- ISBN -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ISBN" class="form-label font-weight-bold">ISBN</label>
+                        <input asp-for="ISBN" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="ISBN"></span>
+                    </div>
+
+                    <!-- Author -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Author" class="form-label font-weight-bold">Author</label>
+                        <input asp-for="Author" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Author"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- List Price -->
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="ListPrice" class="form-label font-weight-bold">List Price</label>
+                        <input asp-for="ListPrice" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="ListPrice"></span>
+                    </div>
+
+                    <!-- Regular Price -->
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="Price" class="form-label font-weight-bold">Regular Price</label>
+                        <input asp-for="Price" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Price"></span>
+                    </div>
+
+                    <!-- Price for 50+ -->
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="Price50" class="form-label font-weight-bold">Price (50+)</label>
+                        <input asp-for="Price50" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Price50"></span>
+                    </div>
+
+                    <!-- Price for 100+ -->
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="Price100" class="form-label font-weight-bold">Price (100+)</label>
+                        <input asp-for="Price100" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="Price100"></span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="bi bi-check-circle"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" asp-controller="Product" class="btn btn-secondary px-4 ms-2">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

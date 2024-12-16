@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BulkyBook.Models;
 using BulkyBook.DataAccess.Repository.IRepository;
-namespace BulkyBookWeb.Controllers
+namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
         /*public readonly ApplicationDbContext _db;*/
-       /* private readonly ICategoryRepository _categoryRepo;*/
-        
+        /* private readonly ICategoryRepository _categoryRepo;*/
+
         private readonly IUnitOfWork _unitOfWork;
         /*public CategoryController(ApplicationDbContext db)
         {
@@ -19,14 +19,14 @@ namespace BulkyBookWeb.Controllers
         //Now we are  creating object for CategoryRepository in UnitOfWorl
         public CategoryController(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: CatrgoryController
         public ActionResult Index()
         {
             Console.WriteLine("Hello");
-            var objCategoryList=_unitOfWork.Category.GetAll().ToList();
+            var objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -36,7 +36,7 @@ namespace BulkyBookWeb.Controllers
         //    return View();
         //}
 
-         //GET: CatrgoryController/Create
+        //GET: CatrgoryController/Create
         [HttpGet]
         public ActionResult Create()
         {
@@ -45,7 +45,7 @@ namespace BulkyBookWeb.Controllers
 
         // POST: CatrgoryController/Create
         [HttpPost]
-     
+
         public ActionResult Create(Category category)
         {
             try
@@ -53,7 +53,7 @@ namespace BulkyBookWeb.Controllers
                 _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
                 TempData["success"] = "New Category Has been created";
-                return RedirectToAction("Index","Category");
+                return RedirectToAction("Index", "Category");
             }
             catch
             {
@@ -68,7 +68,7 @@ namespace BulkyBookWeb.Controllers
             try
             {
                 /*var category = _db.Categories.SingleOrDefault(c => c.Id == id);*/
-                var category=_unitOfWork.Category.Get(u=>u.Id == id);
+                var category = _unitOfWork.Category.Get(u => u.Id == id);
 
                 if (category != null)
                 {
@@ -81,7 +81,7 @@ namespace BulkyBookWeb.Controllers
 
                 return RedirectToAction("Index", "Category");
             }
-           
+
         }
 
         // POST: CatrgoryController/Edit/5
@@ -91,15 +91,15 @@ namespace BulkyBookWeb.Controllers
         {
             try
             {
-               /* _db.Categories.Update(category);
-                _db.SaveChanges();*/
+                /* _db.Categories.Update(category);
+                 _db.SaveChanges();*/
 
                 _unitOfWork.Category.Update(category);
                 _unitOfWork.Save();
 
 
                 TempData["success"] = "Category has been edited....";
-                return RedirectToAction("Index","Category");
+                return RedirectToAction("Index", "Category");
             }
             catch
             {
@@ -114,8 +114,8 @@ namespace BulkyBookWeb.Controllers
             var ItemToBeRemoved = _unitOfWork.Category.Get(u => u.Id == id);
             if (ItemToBeRemoved != null)
             {
-              /*  _db.Categories.Remove(ItemToBeRemoved);
-                _db.SaveChanges();*/
+                /*  _db.Categories.Remove(ItemToBeRemoved);
+                  _db.SaveChanges();*/
 
                 _unitOfWork.Category.Remove(ItemToBeRemoved);
                 _unitOfWork.Save();

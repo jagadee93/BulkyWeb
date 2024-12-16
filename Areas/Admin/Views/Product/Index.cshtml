@@ -1,0 +1,21 @@
+﻿@model List<Product>
+
+<div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var obj in Model)
+        {
+            <div class="col">
+                <div class="card h-50 shadow-sm">
+                    <img src="https://via.placeholder.com/50" class="card-img-top" alt="@obj.Title">
+                    <div class="card-body">
+                        <h5 class="card-title">@obj.Title</h5>
+                        <p class="card-text text-muted">@obj.Description</p>
+                        <p class="card-text"><strong>Author:</strong> @obj.Author</p>
+                        <p class="card-text"><strong>Price:</strong> $@obj.ListPrice</p>
+                        <a asp-controller="Product" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
