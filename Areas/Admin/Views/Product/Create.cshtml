@@ -70,6 +70,16 @@
                         <input asp-for="Price100" class="form-control" required />
                         <span class="text-danger small" asp-validation-for="Price100"></span>
                     </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="CategoryId" class="form-label font-weight-bold">Category</label>
+                        <select asp-for="CategoryId" class="form-control form-select" asp-items="@(ViewData["CategoryList"] as IEnumerable<SelectListItem>)" required>
+                            <option disabled selected>--Select Category--</option>
+                        </select>
+                        <span class="text-danger small" asp-validation-for="CategoryId"></span>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->

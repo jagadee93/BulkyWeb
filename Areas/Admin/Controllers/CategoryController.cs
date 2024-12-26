@@ -68,7 +68,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             try
             {
                 /*var category = _db.Categories.SingleOrDefault(c => c.Id == id);*/
-                var category = _unitOfWork.Category.Get(u => u.Id == id);
+                var category = _unitOfWork.Category.Get(u => u.CategoryId == id);
 
                 if (category != null)
                 {
@@ -111,7 +111,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             /* var ItemToBeRemoved=_db.Categories.FirstOrDefault(x => x.Id == id);*/
-            var ItemToBeRemoved = _unitOfWork.Category.Get(u => u.Id == id);
+            var ItemToBeRemoved = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (ItemToBeRemoved != null)
             {
                 /*  _db.Categories.Remove(ItemToBeRemoved);

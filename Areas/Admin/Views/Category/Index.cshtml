@@ -28,8 +28,8 @@
                 <td>
                     @obj.DisplayOrder
                 </td>
-                <td><a asp-route-id="@obj.Id" asp-action="Edit" asp-controller="Category">Edit</a> </td>
-                <td><a asp-route-id="@obj.Id" asp-action="Delete" asp-controller="Category" >Delete</a></td>
+                <td><a asp-route-id="@obj.CategoryId" asp-action="Edit" asp-controller="Category">Edit</a> </td>
+                <td><a asp-route-id="@obj.CategoryId" asp-action="Delete" asp-controller="Category" >Delete</a></td>
             </tr>
         }
     </tbody>

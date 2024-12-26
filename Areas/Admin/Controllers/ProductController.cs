@@ -2,6 +2,7 @@
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
@@ -22,6 +23,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var ListOfBooks=unitOfWork.Product.GetAll().ToList();
+           
 
             return View(ListOfBooks);
         }
@@ -29,7 +31,14 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            IEnumerable<SelectListItem> CategoryList = unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.CategoryId.ToString()
+            });
+            //ViewBag.CategoryList = CategoryList;
+            ViewData["CategoryList"]= CategoryList;
+            return View();  
         }
 
         [HttpPost]
@@ -101,10 +110,23 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
+
+            Console.WriteLine(id+"Here is detail id");
+            if(id==0|| id == null)
+            {
+                return NotFound();
+            }
+
+
             var product = unitOfWork.Product.Get(u => u.Id == id);
-            return View(product);
+            if (product != null)
+            {
+                Console.WriteLine($"Product {product.Id} {product.Description}");
+                return View(product);
+            }
+            return NotFound();
         }
 
 
