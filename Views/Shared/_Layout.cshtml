@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BulkyBookWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
 </head>
 <body>
     <header>
@@ -45,7 +46,7 @@
                             </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product">Products</a></li>
-                            <li><a class="dropdown-item" asp-area="Admin" asp-action="Create" asp-controller="Product">Create</a></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-action="Upsert" asp-controller="Product">Create</a></li>
                             <li><a class="dropdown-item" asp-area="Admin" asp-action="Manage" asp-controller="Product">Manage</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -71,6 +72,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/rkzu4c6qmfg6fauy31vqggqr22cekhxa8x1r6zqu84xhp2t1/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

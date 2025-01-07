@@ -1,8 +1,9 @@
-﻿using BulkyBook.DataAccess.Repository;
+﻿
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BulkyBook.Models.ViewModels;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
@@ -29,32 +30,63 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            IEnumerable<SelectListItem> CategoryList = unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            Console.WriteLine("I came to controller");
+            ProductVM productVM = new() {
+
+                CategoryList = unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.CategoryId.ToString()
+                }),
+                Product = new Product()
+            };
+            if (id == null || id == 0)
             {
-                Text = u.Name,
-                Value = u.CategoryId.ToString()
-            });
-            //ViewBag.CategoryList = CategoryList;
-            ViewData["CategoryList"]= CategoryList;
-            return View();  
+                //create
+                return View(productVM);
+            }
+            else
+            {
+                //Update Functionality
+                productVM.Product = unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
+
+            /*if (id != null || id != 0)
+            {
+                //Update Functionality
+                productVM.Product = unitOfWork.Product.Get(u=>u.Id==id);
+                return View(productVM);
+            }*/
+            //create
+            //return View(productVM);  
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Upsert(ProductVM productVM,IFormFile? file)
         {
             if (ModelState.IsValid)
             {
                 Console.WriteLine("Creating an ");
-                unitOfWork.Product.Add(product);
+                unitOfWork.Product.Add(productVM.Product);
                 unitOfWork.Save();
                 TempData["success"] = "New Book has been added";
                 return RedirectToAction("Index");
             }
-            Console.WriteLine(ModelState.ErrorCount);
-            TempData["error"] = "Book not created try again ";
-            return RedirectToAction("Index");
+             else
+             {
+                 //populate the list 
+                 Console.WriteLine("Populated the list...");
+                 productVM.CategoryList = unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                 {
+                     Text = u.Name,
+                     Value = u.CategoryId.ToString()
+                 });
+
+                 return View(productVM);
+             }
         }
 
 
