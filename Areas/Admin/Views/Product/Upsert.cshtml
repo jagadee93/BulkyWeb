@@ -21,12 +21,24 @@
                         <span class="text-danger small" asp-validation-for="@Model.Product.Title"></span>
                     </div>
 
-                    <!-- Description -->
+                    <!-- ISBN -->
                     <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.Product.ImageUrl" class="form-label font-weight-bold">ImgUrl</label>
-                        <input asp-for="@Model.Product.ImageUrl" type="file" class="form-control" required />
-                        <span class="text-danger small" asp-validation-for="@Model.Product.ImageUrl"></span>
+                        <label asp-for="@Model.Product.ISBN" class="form-label font-weight-bold">ISBN</label>
+                        <input asp-for="@Model.Product.ISBN" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="@Model.Product.ISBN"></span>
                     </div>
+
+                    <!-- Author -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="@Model.Product.Author" class="form-label font-weight-bold">Author</label>
+                        <input asp-for="@Model.Product.Author" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="@Model.Product.Author"></span>
+                    </div>
+
+                    <!-- Description -->
+                  
+
+
                 </div>
                 <div class="row">
                     <!-- Description -->
@@ -43,18 +55,14 @@
               
 
                 <div class="row">
-                    <!-- ISBN -->
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.Product.ISBN" class="form-label font-weight-bold">ISBN</label>
-                        <input asp-for="@Model.Product.ISBN" class="form-control" required />
-                        <span class="text-danger small" asp-validation-for="@Model.Product.ISBN"></span>
-                    </div>
 
-                    <!-- Author -->
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="@Model.Product.Author" class="form-label font-weight-bold">Author</label>
-                        <input asp-for="@Model.Product.Author" class="form-control" required />
-                        <span class="text-danger small" asp-validation-for="@Model.Product.Author"></span>
+                    <div class="col-md-5 mb-3">
+                        <label asp-for="@Model.Product.ImageUrl" class="form-label font-weight-bold">ImgUrl</label>
+                        <input asp-for="@Model.Product.ImageUrl" type="file" name="file" class="form-control" required />
+                        <span class="text-danger small" asp-validation-for="@Model.Product.ImageUrl"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <img src="@Model.Product.ImageUrl"  height="300" width="300"/>
                     </div>
                 </div>
 
@@ -100,9 +108,25 @@
 
                 <!-- Submit Button -->
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-success px-4">
-                        <i class="bi bi-plus-circle"></i> Create Book
-                    </button>
+                    @* @(if (Model.Product.Id != 0 || Model.Product.Id != null) ){
+
+                    }; *@
+
+                    @if (@Model.Product.Id != 0 || @Model.Product.Id != null)
+                    {
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-plus-circle"></i> Create Book
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-plus-circle"></i> Update Book
+                        </button>
+                    }
+
+
+                  
                     <a asp-action="Index" asp-controller="Product" class="btn btn-secondary px-4 ms-2">
                         <i class="bi bi-arrow-left"></i> Back to List
                     </a>
@@ -124,7 +148,7 @@
             // Try the most popular premium features until Jan 21, 2025:
             'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
           ],
-          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          toolbar: 'blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog | align lineheight | checklist numlist bullist indent outdent ',
           tinycomments_mode: 'embedded',
           tinycomments_author: 'Author name',
           mergetags_list: [
